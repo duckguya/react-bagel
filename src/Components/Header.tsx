@@ -20,10 +20,9 @@ const Logo = styled.img`
   max-width: 35px;
   cursor: pointer;
 `;
-const Menus = styled.div`
+const Menus = styled.p`
   padding-left: 1.5rem;
   font-size: 0.8rem;
-  color: ${(props) => props.theme.dark.fontColor};
   cursor: pointer;
   &:hover {
     color: ${(props) => props.theme.accentColor};
