@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Helmet } from "react-helmet-async";
+import { motion } from "framer-motion";
 
 const Container = styled.div`
   width: 100vw;
@@ -63,21 +64,42 @@ const Middle1 = styled.div`
 const Middle2 = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.2rem;
+  gap: 1rem;
   text-align: center;
   height: 100%;
+  span {
+    font-size: 0.3rem;
+  }
 `;
 
-const MiddleImg = styled.div<{ imgName: string }>`
-  /* background-image: url("/images/middle1.jpg"); */
-  background-image: url(${(props) => props.imgName});
-  background-size: cover;
-  background-repeat: no-repeat;
+const MiddleImgWrapper = styled(motion.div)`
   max-width: 16rem;
   max-height: 16rem;
   min-width: 16rem;
   min-height: 16rem;
+  overflow: hidden;
 `;
+
+const MiddleImg = styled(motion.div)<{ imgName: string }>`
+  /* background-image: url("/images/middle1.jpg"); */
+  background-image: url(${(props) => props.imgName});
+  background-size: cover;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  transform-origin: center center;
+`;
+
+const middleVariants = {
+  initial: {
+    width: "100%",
+    height: "100%",
+  },
+  active: {
+    width: "110%",
+    height: "110%",
+  },
+  exit: { width: "100%", height: "100%" },
+};
 
 // const arr: Array<string> = ["1", "2", "3"];
 const arr: Array<string> = [
@@ -107,17 +129,29 @@ function Home() {
         </Middle1>
         <Middle2>
           <>
-            {arr && arr.map((n) => <MiddleImg imgName={n} />)}
+            {arr &&
+              arr.map((n) => (
+                <MiddleImgWrapper>
+                  <MiddleImg
+                    imgName={n}
+                    variants={middleVariants}
+                    initial="initial"
+                    whileHover="active"
+                    exit="exit"
+                    transition={{ type: "tween" }}
+                  />
+                </MiddleImgWrapper>
+              ))}
 
             <p>Cafe Location</p>
             <p>Coffee Class</p>
             <p>Daily Bagel</p>
-            <p>가까운 매장을 확인하세요</p>
-            <p>가까운 매장을 확인하세요</p>
-            <p>가까운 매장을 확인하세요</p>
-            <p>더 알아보기</p>
-            <p>더 알아보기</p>
-            <p>더 알아보기</p>
+            <span>가까운 매장을 확인하세요</span>
+            <span>가까운 매장을 확인하세요</span>
+            <span>가까운 매장을 확인하세요</span>
+            <span>더 알아보기</span>
+            <span>더 알아보기</span>
+            <span>더 알아보기</span>
           </>
         </Middle2>
       </MiddleWrapper>
